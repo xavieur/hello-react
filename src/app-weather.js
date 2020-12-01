@@ -1,7 +1,7 @@
 const key = '9353d7f8d0ffc410966b55287511f6bb'
 const city = 'Barcelona'
 
-const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}`
+const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}&units=metric&lang=es`
 
 
 const getWeather = async ()=>{
@@ -19,7 +19,7 @@ const render = (temperatura, humedad, presion, descripcion)=>{
         <div>
             <h1>Tiempo en {city}:</h1>
             <p>En pocas palabras: {descripcion}</p>
-            <p>Temperatura: {temperatura}</p>
+            <p>Temperatura: {temperatura} grados Celsius</p>
             <p>Humedad: {humedad}</p>
             <p>Presión: {presion}</p>
         </div>
