@@ -25,13 +25,14 @@ const getCountryByIP = async ()=>{
     const result2 = await axios.get('https://restcountries.eu/rest/v2/all')
     const countries = result2.data
     /* analizando el resultado de restcountries.eu
-    console.log('restcountries.eu: ',countries.data[0].alpha2Code) */
-
+    console.log('restcountries.eu: ', countries[0].alpha2Code) */
+    
     // buscar el país que tenga nuestro countryCode en todos los países
     const country = countries.find((country)=>{
         return country.alpha2Code === countryCode
     })
     render(country.name)
+    return country.name
 }
 
 getCountryByIP()
