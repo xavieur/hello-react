@@ -1,29 +1,47 @@
 "use strict";
 
-var getCountry = function getCountry(countryCode) {
-  return axios.get('https://restcountries.eu/rest/v2/all').then(function (countries) {
-    var country = countries.data.find(function (item) {
-      return item.alpha2Code === countryCode;
-    });
-    return country;
-  });
+var personA = {
+  name: 'Perico',
+  age: 25,
+  city: 'Reus'
 };
 
-var getLocation = function getLocation() {
-  return axios.get('http://ipinfo.io/json?token=2ad24e9889b095');
+var sumar = function sumar() {
+  personA.age = personA.age + 1; // personA.age += 1
+  // personA.age ++
+
+  render();
 };
 
-getLocation().then(function (loc) {
-  return getCountry(loc.data.country);
-}).then(function (country) {
-  render(country.name);
-})["catch"](function (err) {
-  console.log(err);
-});
+var restar = function restar() {
+  personA.age = personA.age - 1; // personA.age -= 1
+  // personA.age -- 
+
+  render();
+};
+
+var reset = function reset() {
+  personA.age = 0;
+  render();
+};
+
+var writeLocation = function writeLocation(city) {
+  if (city) {
+    return /*#__PURE__*/React.createElement("p", null, "Ciudad: ", city);
+  }
+};
+
 var appRoot = document.getElementById('appRoot');
 
-var render = function render(country) {
-  var template = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", null, country));
+var render = function render() {
+  var template = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Nombre: ", personA.name ? personA.name : 'Anónimo'), personA.age && personA.age >= 18 && /*#__PURE__*/React.createElement("p", null, "Edad: ", personA.age), writeLocation(personA.city), /*#__PURE__*/React.createElement("button", {
+    onClick: sumar
+  }, "+1"), /*#__PURE__*/React.createElement("button", {
+    onClick: restar
+  }, "-1"), /*#__PURE__*/React.createElement("button", {
+    onClick: reset
+  }, "reset"));
+  console.log(template);
   ReactDOM.render(template, appRoot);
 };
 

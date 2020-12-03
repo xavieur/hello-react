@@ -1,6 +1,6 @@
 const personA = {
     name: 'Perico',
-    age: 26,
+    age: 25,
     city: 'Reus'
 }
 const sumar = ()=>{
@@ -20,19 +20,27 @@ const reset = ()=>{
     render()
 }
 
+const writeLocation=(city)=>{
+    if(city){
+        return <p>Ciudad: {city}</p>
+    }
+}
 
 const appRoot = document.getElementById('appRoot')
+
 const render = ()=>{
     const template = (
         <div>
-            <h1>Nombre: {personA.name}</h1>
-            <p>Edad: {personA.age}</p>
-            <p>Ciudad: {personA.city}</p>
+            <h1>Nombre: {personA.name ? personA.name: 'Anónimo'}</h1>
+            {(personA.age && personA.age>=18) && <p>Edad: {personA.age}</p> }
+            {writeLocation(personA.city)}
             <button onClick={sumar}>+1</button>
             <button onClick={restar}>-1</button>
             <button onClick={reset}>reset</button>
         </div>
     )
+
+    console.log(template)
     
     ReactDOM.render(template, appRoot)
 }
