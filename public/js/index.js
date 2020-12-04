@@ -61,5 +61,20 @@ filter.addEventListener('input', function (e) {
 var footer = document.createElement('footer');
 footer.textContent = 'Copyright 2020';
 body.appendChild(footer);
+var darthVader = document.querySelector('#darthvader');
+darthVader.addEventListener('click', function (e) {
+  /* 
+  1. createElement
+  2. lo configuramos
+  3. bloque.appendChild
+  */
+  var lukeSkyWalker = document.createElement('button');
+  var firstSection = document.querySelector('section:first-child');
+  lukeSkyWalker.textContent = 'LukeSkyWalker';
+  lukeSkyWalker.addEventListener('click', function () {
+    darthVader.style.display = 'none';
+  });
+  firstSection.appendChild(lukeSkyWalker);
+});
 
 //# sourceMappingURL=index.js.map

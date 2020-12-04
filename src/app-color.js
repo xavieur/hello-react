@@ -1,7 +1,7 @@
 const button = document.querySelector('#verde')
 const body = document.querySelector('body')
 
-button.addEventListener('click', (e)=>{
+button.addEventListener('click', (e) => {
     body.style.backgroundColor = 'green'
 })
 
@@ -9,7 +9,7 @@ const retocarButton = document.querySelector('#retocar')
 
 const ultimoParrafo = document.querySelector('section p:last-of-type')
 
-retocarButton.addEventListener('click', (e)=>{
+retocarButton.addEventListener('click', (e) => {
     ultimoParrafo.classList.add('retocar')
 })
 
@@ -32,19 +32,19 @@ const filter = document.querySelector('#buscarFruta')
 const salida = document.querySelector('#salida')
 
 let frutas = []
-for(let fruta of frutasUL){
+for (let fruta of frutasUL) {
     frutas.push(fruta.textContent)
 }
 console.log(frutas)
 
-filter.addEventListener('input', (e)=>{
+filter.addEventListener('input', (e) => {
     console.log(e.target.value)
 })
 
 
-filter.addEventListener('input', (e)=>{
+filter.addEventListener('input', (e) => {
     const filtro = e.target.value
-    const resultado = frutas.filter((fruta)=>{
+    const resultado = frutas.filter((fruta) => {
         return fruta.toLowerCase().includes(filtro)
     })
     salida.textContent = resultado.join(', ')
@@ -54,4 +54,21 @@ const footer = document.createElement('footer')
 footer.textContent = 'Copyright 2020'
 body.appendChild(footer)
 
+const darthVader = document.querySelector('#darthvader')
+darthVader.addEventListener('click', (e) => {
+    /* 
+    1. createElement
+    2. lo configuramos
+    3. bloque.appendChild
+    */
+    const lukeSkyWalker = document.createElement('button')
+    const firstSection = document.querySelector('section:first-child')
+
+    lukeSkyWalker.textContent = 'LukeSkyWalker'
+    lukeSkyWalker.addEventListener('click', ()=>{
+        darthVader.style.display = 'none'
+    })
+
+    firstSection.appendChild(lukeSkyWalker)
+})
 
