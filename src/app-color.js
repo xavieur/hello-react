@@ -15,5 +15,43 @@ retocarButton.addEventListener('click', (e)=>{
 
 
 
+/* 
+const frutasLI = document.querySelectorAll('ul li')
+console.log(frutasLI)
+let frutasExtraidasDeLaLista
+frutasLI.forEach((fruta)=>{
+    console.log(fruta.textContent)
+    frutasExtraidasDeLaLista.push(fruta.textContent)
+})
+for(let fruta of frutasLI){
+    frutasExtraidasDeLaLista.push(fruta.textContent)
+} */
+
+const frutasUL = document.querySelectorAll('section ul li')
+const filter = document.querySelector('#buscarFruta')
+const salida = document.querySelector('#salida')
+
+let frutas = []
+for(let fruta of frutasUL){
+    frutas.push(fruta.textContent)
+}
+console.log(frutas)
+
+filter.addEventListener('input', (e)=>{
+    console.log(e.target.value)
+})
+
+
+filter.addEventListener('input', (e)=>{
+    const filtro = e.target.value
+    const resultado = frutas.filter((fruta)=>{
+        return fruta.toLowerCase().includes(filtro)
+    })
+    salida.textContent = resultado.join(', ')
+})
+
+const footer = document.createElement('footer')
+footer.textContent = 'Copyright 2020'
+body.appendChild(footer)
 
 
