@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "serve": "live-server public --port=5555",
-    "dev": "babel src/app-person.js --out-file public/js/index.js --source-maps --watch --presets=@babel/preset-env,@babel/preset-react"
+    "dev": "babel src/app-color.js --out-file public/js/index.js --source-maps --watch --presets=@babel/preset-env,@babel/preset-react"
   },
   "repository": {
     "type": "git",

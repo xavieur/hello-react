@@ -3,6 +3,7 @@ const personA = {
     age: 25,
     city: 'Reus'
 }
+
 const sumar = ()=>{
     personA.age = personA.age + 1
     // personA.age += 1
