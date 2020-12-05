@@ -6,27 +6,18 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
+// cambiar color
 var button = document.querySelector('#verde');
 var body = document.querySelector('body');
 button.addEventListener('click', function (e) {
   body.style.backgroundColor = 'green';
-});
+}); // retocar un párrafo
+
 var retocarButton = document.querySelector('#retocar');
 var ultimoParrafo = document.querySelector('section p:last-of-type');
 retocarButton.addEventListener('click', function (e) {
   ultimoParrafo.classList.add('retocar');
-});
-/* 
-const frutasLI = document.querySelectorAll('ul li')
-console.log(frutasLI)
-let frutasExtraidasDeLaLista
-frutasLI.forEach((fruta)=>{
-    console.log(fruta.textContent)
-    frutasExtraidasDeLaLista.push(fruta.textContent)
-})
-for(let fruta of frutasLI){
-    frutasExtraidasDeLaLista.push(fruta.textContent)
-} */
+}); // filtrar frutas
 
 var frutasUL = document.querySelectorAll('section ul li');
 var filter = document.querySelector('#buscarFruta');
@@ -57,11 +48,15 @@ filter.addEventListener('input', function (e) {
     return fruta.toLowerCase().includes(filtro);
   });
   salida.textContent = resultado.join(', ');
-});
+}); // crear un footer
+
 var footer = document.createElement('footer');
 footer.textContent = 'Copyright 2020';
-body.appendChild(footer);
+body.appendChild(footer); // crear un botón 
+
 var darthVader = document.querySelector('#darthvader');
+var firstSection = document.querySelector('section:first-child');
+var galaxy = document.querySelector('#galaxy');
 darthVader.addEventListener('click', function (e) {
   /* 
   1. createElement
@@ -69,12 +64,17 @@ darthVader.addEventListener('click', function (e) {
   3. bloque.appendChild
   */
   var lukeSkyWalker = document.createElement('button');
-  var firstSection = document.querySelector('section:first-child');
   lukeSkyWalker.textContent = 'LukeSkyWalker';
   lukeSkyWalker.addEventListener('click', function () {
     darthVader.style.display = 'none';
   });
-  firstSection.appendChild(lukeSkyWalker);
-});
+  galaxy.appendChild(lukeSkyWalker);
+}); // crear un enlace a mi Github
+
+var miGitHub = document.createElement('a');
+miGitHub.textContent = 'mi github';
+miGitHub.setAttribute('href', 'https://github.com/xavieur');
+miGitHub.classList.add('a');
+firstSection.appendChild(miGitHub);
 
 //# sourceMappingURL=index.js.map
