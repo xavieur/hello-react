@@ -6,18 +6,51 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-// cambiar color
-var button = document.querySelector('#verde');
-var body = document.querySelector('body');
-button.addEventListener('click', function (e) {
-  body.style.backgroundColor = 'green';
-}); // retocar un párrafo
+/* 
+Ejercicios de JavaScript interactuando con el DOM:
+    Document Object Model 
+
+    Crear un elemento:
+        const elemento = document.createElement('<etiqueta html>')
+    Capturar un elemento
+        const elemento = document.querySelector('<selector css>')
+    Capturar todos los elementos
+        const elementos = document.querySelectorAll('<selector css>')
+
+        +++++++++++++
+    
+    A partir de un elemento podemos:
+
+    Editar su atributo class
+
+        elemento.classList.add('<nombre de la clase>')
+        elemento.classList.remove('<nombre de la clase>')
+        elemento.classList.toggle('<nombre de la clase>')
+
+    Editar su atributo style
+
+        elemento.style.<propiedad css>
+    
+    Editar otros atributos del elemento
+
+        elemento.setAttribute('<nombre atributo>', '<valor atributo>')
+*/
+// cambiar una propiedad CSS al hacer click en un botón
+var verdeButton = document.querySelector('#verde');
+var blancoButton = document.querySelector('#blanco');
+var main = document.querySelector('body');
+verdeButton.addEventListener('click', function (e) {
+  main.style.backgroundColor = 'green';
+});
+blancoButton.addEventListener('click', function (e) {
+  main.style.backgroundColor = 'white';
+}); // retocar un párrafo en varias propiedades de estilos a la vez
 
 var retocarButton = document.querySelector('#retocar');
 var ultimoParrafo = document.querySelector('section p:last-of-type');
 retocarButton.addEventListener('click', function (e) {
   ultimoParrafo.classList.add('retocar');
-}); // filtrar frutas
+}); // filtrar las frutas que figuran en una lista del documento
 
 var frutasUL = document.querySelectorAll('section ul li');
 var filter = document.querySelector('#buscarFruta');
@@ -48,11 +81,11 @@ filter.addEventListener('input', function (e) {
     return fruta.toLowerCase().includes(filtro);
   });
   salida.textContent = resultado.join(', ');
-}); // crear un footer
+}); // crear un footer y añadirlo en un bloque
 
 var footer = document.createElement('footer');
 footer.textContent = 'Copyright 2020';
-body.appendChild(footer); // crear un botón 
+document.body.appendChild(footer); // crear un botón que crea otro que elimina el primero
 
 var darthVader = document.querySelector('#darthvader');
 var firstSection = document.querySelector('section:first-child');

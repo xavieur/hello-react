@@ -1,9 +1,46 @@
-// cambiar una propiedad CSS al hacer click en un botón
-const button = document.querySelector('#verde')
-const body = document.querySelector('body')
+/* 
+Ejercicios de JavaScript interactuando con el DOM:
+    Document Object Model 
 
-button.addEventListener('click', (e) => {
-    body.style.backgroundColor = 'green'
+    Crear un elemento:
+        const elemento = document.createElement('<etiqueta html>')
+    Capturar un elemento
+        const elemento = document.querySelector('<selector css>')
+    Capturar todos los elementos
+        const elementos = document.querySelectorAll('<selector css>')
+
+        +++++++++++++
+    
+    A partir de un elemento podemos:
+
+    Editar su atributo class
+
+        elemento.classList.add('<nombre de la clase>')
+        elemento.classList.remove('<nombre de la clase>')
+        elemento.classList.toggle('<nombre de la clase>')
+
+    Editar su atributo style
+
+        elemento.style.<propiedad css>
+    
+    Editar otros atributos del elemento
+
+        elemento.setAttribute('<nombre atributo>', '<valor atributo>')
+*/
+
+
+
+// cambiar una propiedad CSS al hacer click en un botón
+const verdeButton = document.querySelector('#verde')
+const blancoButton = document.querySelector('#blanco')
+const main = document.querySelector('body')
+
+verdeButton.addEventListener('click', (e) => {
+    main.style.backgroundColor = 'green'
+})
+
+blancoButton.addEventListener('click', (e) => {
+    main.style.backgroundColor = 'white'
 })
 
 // retocar un párrafo en varias propiedades de estilos a la vez
@@ -39,7 +76,7 @@ filter.addEventListener('input', (e) => {
 // crear un footer y añadirlo en un bloque
 const footer = document.createElement('footer')
 footer.textContent = 'Copyright 2020'
-body.appendChild(footer)
+document.body.appendChild(footer)
 
 // crear un botón que crea otro que elimina el primero
 const darthVader = document.querySelector('#darthvader')
@@ -53,7 +90,7 @@ darthVader.addEventListener('click', (e) => {
     3. bloque.appendChild
     */
     const lukeSkyWalker = document.createElement('button')
-    lukeSkyWalker.textContent = 'LukeSkyWalker'
+    lukeSkyWalker.textContent = 'Luke Sky Walker'
     lukeSkyWalker.addEventListener('click', ()=>{
         darthVader.style.display = 'none'
     })
@@ -67,4 +104,5 @@ miGitHub.textContent = 'mi github'
 miGitHub.setAttribute('href', 'https://github.com/xavieur')
 miGitHub.classList.add('a')
 firstSection.appendChild(miGitHub)
+
 
