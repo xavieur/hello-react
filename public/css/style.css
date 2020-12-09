@@ -22,3 +22,12 @@ p, button{
     margin-right: auto;
     padding-left: 16px;
 }
+
+.titulo{
+    font-size: large;
+}
+
+#appRoot{
+    width: 80%;
+    margin: auto;
+}

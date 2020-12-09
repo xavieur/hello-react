@@ -32,7 +32,7 @@ const appRoot = document.getElementById('appRoot')
 const render = ()=>{
     const template = (
         <div>
-            <h1>Nombre: {personA.name ? personA.name: 'Anónimo'}</h1>
+            <h1 className='titulo'>Nombre: {personA.name ? personA.name: 'Anónimo'}</h1>
             {(personA.age && personA.age>=18) && <p>Edad: {personA.age}</p> }
             {writeLocation(personA.city)}
             <button onClick={sumar}>+1</button>
