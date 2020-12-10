@@ -26,6 +26,8 @@ Ejercicios de JavaScript interactuando con el DOM:
     Editar otros atributos del elemento
 
         elemento.setAttribute('<nombre atributo>', '<valor atributo>')
+
+    
 */
 
 

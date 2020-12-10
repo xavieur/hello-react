@@ -11,7 +11,14 @@
 
 <body>
     <header>
-        <h1>¡hola!</h1>
+        <h1 data-respuesta="¿qué tal?">¡hola!</h1>
+        <script>
+            const titular = document.querySelector('h1')
+            titular.addEventListener('click', (e) => {
+                const respuesta = titular.dataset.respuesta
+                console.log(respuesta)
+            })
+        </script>
     </header>
     <main>
         <section>
@@ -25,17 +32,17 @@
             <br>
             <div>
                 <ul>
-                <li id="fruta1">Manzana</li>
-                <li id="fruta2">Pera</li>
-                <li id="fruta3">Naranja</li>
-            </ul>
-            Filtro: <input id="buscarFruta" type="text" >
-            <p id="salida"></p>
+                    <li id="fruta1">Manzana</li>
+                    <li id="fruta2">Pera</li>
+                    <li id="fruta3">Naranja</li>
+                </ul>
+                Filtro: <input id="buscarFruta" type="text">
+                <p id="salida"></p>
             </div>
             <div id="galaxy">
                 <button id="darthvader">Darth Vader</button>
             </div>
-            
+
 
         </section>
         <section id="appRoot"></section>

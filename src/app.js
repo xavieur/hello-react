@@ -1,55 +1,62 @@
-const books = [
-    {
-        title: 'El principito',
-        author: 'Antoine de Saint-Exupéry'
-    },
-    {
-        title: 'El Quijote',
-        author: 'Miguel de Cervantes Saavedra'
-    },
-    {
-        title: 'Platero y yo',
-        author: 'Juan Ramón Jiménez'
-    }
-]
-
-const onSubmitNewBook = (e) => {
-    e.preventDefault()
-    
-    const newTitle = e.target.elements.titulo.value
-    const newAuthor = e.target.elements.autor.value ? e.target.elements.autor.value : 'Anónimo'
-
-    if(newTitle){
-        books.push({title:newTitle, author:newAuthor})
-        // e.target.reset()
-        e.target.elements.titulo.value = '' 
-        e.target.elements.autor.value = ''
-        render()
+class Description extends React.Component {
+    render() {
+        return <h2>{this.props.texto}</h2>
+        /* return <h2>Recomendaciones personalizadas al detalle</h2> */
     }
 }
 
-const render = ()=>{
+class Header extends React.Component {
+    render() {
+        return <h1>{this.props.tituloDeMiApp}</h1>
+        /* return <h1>Consejero literario digital</h1> */
+    }
+}
 
-    const template = (
-        <div>
-            <h1>Consejero literario</h1>
-            <h2>Recomendaciones personalizadas al detalle</h2>
-            <p>{books.length? `Hay ${books.length} libros`: 'No hay libros disponibles'}</p> 
-            <ul>
-            {books.map((book) => {
-                return <li key={book.title}>{book.title}</li>
-            })}
-            </ul>
-            <form action="" onSubmit={onSubmitNewBook}>
-                <label htmlFor="titulo">Nuevo título: </label>
-                <input type="text" name="titulo" id="titulo" />
-                <label htmlFor="autor">Nuevo autor: </label>
-                <input type="text" name="autor" id="autor" />
+class ChooseBook extends React.Component {
+    render() {
+        return <button>Recomendar libro</button>
+    }
+}
+
+class Books extends React.Component {
+    render() {
+        return <p>Aquí van los libros</p>
+    }
+}
+
+class AddBook extends React.Component {
+    render() {
+        return (
+            <form action="">
+                <label htmlFor="title">Título</label>
+                <input type="text" name="title" id="title" />
+                <label htmlFor="author">Autor</label>
+                <input type="text" name="author" id="author" />
                 <button>Añadir libro</button>
             </form>
-        </div>    
-    )
-    
-    ReactDOM.render(template, appRoot)
+        )
+    }
 }
-render()
+
+class RemoveBooks extends React.Component {
+    render(){
+        return <button>{this.props.orden}</button>
+    }
+}
+
+class ConsejeroApp extends React.Component {
+    render(){
+        return (
+            <div>
+                <Header tituloDeMiApp="Librero digital" />
+                <Description texto="Te asesoro sobre entidades alfanuméricas" />
+                <ChooseBook />
+                <RemoveBooks orden="Borrar libros" />
+                <Books />
+                <AddBook />
+            </div>
+        )
+    }
+}
+
+ReactDOM.render(<ConsejeroApp />, document.querySelector('#appRoot'))
