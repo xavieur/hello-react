@@ -33,6 +33,8 @@ var BooksApp = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, BooksApp);
 
     _this = _super.call(this, props);
+    _this.escogerLibro = _this.escogerLibro.bind(_assertThisInitialized(_this));
+    _this.borrarLibros = _this.borrarLibros.bind(_assertThisInitialized(_this));
     _this.state = {
       books: [{
         title: 'El principito',
@@ -51,8 +53,19 @@ var BooksApp = /*#__PURE__*/function (_React$Component) {
   _createClass(BooksApp, [{
     key: "escogerLibro",
     value: function escogerLibro() {
+      console.log('escoger libro');
       var indice = Math.floor(Math.random() * this.state.books.length);
       alert(this.state.books[indice].title + ' / ' + this.state.books[indice].author);
+    }
+  }, {
+    key: "borrarLibros",
+    value: function borrarLibros() {
+      console.log('aquí ponemos la trituradora');
+      this.setState(function () {
+        return {
+          books: []
+        };
+      });
     }
   }, {
     key: "render",
@@ -60,8 +73,12 @@ var BooksApp = /*#__PURE__*/function (_React$Component) {
       var subtitle = 'Te asesoro sobre entidades alfanuméricas';
       return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Header, {
         subtitulo: subtitle
-      }), /*#__PURE__*/React.createElement(RecommendBook, null), /*#__PURE__*/React.createElement(Books, {
-        libros: this.state.books
+      }), /*#__PURE__*/React.createElement(RecommendBook, {
+        escogerLibro: this.escogerLibro,
+        hayLibros: this.state.books.length > 0
+      }), /*#__PURE__*/React.createElement(Books, {
+        libros: this.state.books,
+        borrarLibros: this.borrarLibros
       }), /*#__PURE__*/React.createElement(AddBook, null));
     }
   }]);
@@ -108,7 +125,10 @@ var RecommendBook = /*#__PURE__*/function (_React$Component3) {
   _createClass(RecommendBook, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", null, "Recomendar libro"));
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
+        disabled: !this.props.hayLibros,
+        onClick: this.props.escogerLibro
+      }, "Recomendar libro"));
     }
   }]);
 
@@ -129,7 +149,9 @@ var Books = /*#__PURE__*/function (_React$Component4) {
   _createClass(Books, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", null, this.props.libros.length ? "Hay ".concat(this.props.libros.length, " libros") : 'No hay libros disponibles en este momento'), /*#__PURE__*/React.createElement("p", null, "Aqu\xED van los libros"), /*#__PURE__*/React.createElement("ul", null, this.props.libros.map(function (libro) {
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", null, this.props.libros.length ? "Hay ".concat(this.props.libros.length, " libros") : 'No hay libros disponibles en este momento'), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("button", {
+        onClick: this.props.borrarLibros
+      }, "Borrar libros")), /*#__PURE__*/React.createElement("ul", null, this.props.libros.map(function (libro) {
         return /*#__PURE__*/React.createElement(Book, {
           key: libro.title,
           titulo: libro.title

@@ -1,6 +1,10 @@
 class BooksApp extends React.Component {
     constructor(props) {
         super(props)
+
+        this.escogerLibro = this.escogerLibro.bind(this)
+        this.borrarLibros = this.borrarLibros.bind(this)
+
         this.state = {
             books: [
                 {
@@ -19,8 +23,17 @@ class BooksApp extends React.Component {
         }
     }
     escogerLibro() {
+        console.log('escoger libro')
         const indice = Math.floor(Math.random() * this.state.books.length)
         alert(this.state.books[indice].title + ' / ' + this.state.books[indice].author);
+    }
+    borrarLibros(){
+        console.log('aquí ponemos la trituradora')
+        this.setState(() => {
+            return {
+                books: []
+            }
+        })
     }
     render() {
 
@@ -29,8 +42,8 @@ class BooksApp extends React.Component {
         return (
             <div>
                 <Header subtitulo={subtitle} />
-                <RecommendBook />
-                <Books libros={this.state.books} />
+                <RecommendBook escogerLibro={this.escogerLibro} hayLibros={this.state.books.length > 0} />
+                <Books libros={this.state.books} borrarLibros={this.borrarLibros} />
                 <AddBook />
             </div>
         )
@@ -53,10 +66,11 @@ Header.defaultProps = {
 }
 
 class RecommendBook extends React.Component {
+
     render() {
         return (
             <div>
-                <button>Recomendar libro</button>
+                <button disabled={!this.props.hayLibros} onClick={this.props.escogerLibro} >Recomendar libro</button>
             </div>
         )
     }
@@ -67,7 +81,7 @@ class Books extends React.Component {
         return (
             <div>
                 <p>{this.props.libros.length ? `Hay ${this.props.libros.length} libros` : 'No hay libros disponibles en este momento'}</p>
-                <p>Aquí van los libros</p>
+                <p><button onClick={this.props.borrarLibros} >Borrar libros</button></p>
                 <ul>
                     {this.props.libros.map((libro) => {
                         return <Book key={libro.title} titulo={libro.title} />
