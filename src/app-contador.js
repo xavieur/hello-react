@@ -11,19 +11,27 @@ class CounterApp extends React.Component {
     }
     incrementar() {
         console.log('incrementar');
-        this.setState((prevState) => {
+        this.setState((estadoPrevio) => {
             return {
-                count: prevState.count + 1
+                count: estadoPrevio.count + 1
             }
         })
     }
     decrementar() {
         console.log('decrementar');
-        this.count = this.count - 1
+        this.setState((estadoPrevio) => {
+            return {
+                count: estadoPrevio.count - 1
+            }
+        })
     }
     resetear() {
         console.log('resetear');
-        this.count = 0
+        this.setState(() => {
+            return {
+                count: 0
+            }
+        })
     }
     render() {
         return (
