@@ -1,33 +1,97 @@
-class Description extends React.Component {
+class BooksApp extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            books: [
+                {
+                    title: 'El principito',
+                    author: 'Antoine de Saint-Exupéry'
+                },
+                {
+                    title: 'El Quijote',
+                    author: 'Miguel de Cervantes Saavedra'
+                },
+                {
+                    title: 'Platero y yo',
+                    author: 'Juan Ramón Jiménez'
+                }
+            ]
+        }
+    }
+    escogerLibro() {
+        const indice = Math.floor(Math.random() * this.state.books.length)
+        alert(this.state.books[indice].title + ' / ' + this.state.books[indice].author);
+    }
     render() {
-        return <h2>{this.props.texto}</h2>
-        /* return <h2>Recomendaciones personalizadas al detalle</h2> */
+
+        const subtitle = 'Te asesoro sobre entidades alfanuméricas'
+
+        return (
+            <div>
+                <Header subtitulo={subtitle} />
+                <RecommendBook />
+                <Books libros={this.state.books} />
+                <AddBook />
+            </div>
+        )
     }
 }
 
 class Header extends React.Component {
     render() {
-        return <h1>{this.props.tituloDeMiApp}</h1>
-        /* return <h1>Consejero literario digital</h1> */
+        return (
+            <div>
+                <h1>{this.props.titulo}</h1>
+                <h2>{this.props.subtitulo}</h2>
+            </div>
+        )
     }
 }
 
-class ChooseBook extends React.Component {
+Header.defaultProps = {
+    titulo: 'Consejero literario digital'
+}
+
+class RecommendBook extends React.Component {
     render() {
-        return <button>Recomendar libro</button>
+        return (
+            <div>
+                <button>Recomendar libro</button>
+            </div>
+        )
     }
 }
 
 class Books extends React.Component {
     render() {
-        return <p>Aquí van los libros</p>
+        return (
+            <div>
+                <p>{this.props.libros.length ? `Hay ${this.props.libros.length} libros` : 'No hay libros disponibles en este momento'}</p>
+                <p>Aquí van los libros</p>
+                <ul>
+                    {this.props.libros.map((libro) => {
+                        return <Book key={libro.title} titulo={libro.title} />
+                    })}
+                </ul>
+            </div>
+        )
+    }
+}
+
+class Book extends React.Component {
+    render() {
+        return (
+            <li>
+                {this.props.titulo}
+            </li>
+        )
     }
 }
 
 class AddBook extends React.Component {
     render() {
         return (
-            <form action="">
+            <form>
                 <label htmlFor="title">Título</label>
                 <input type="text" name="title" id="title" />
                 <label htmlFor="author">Autor</label>
@@ -38,25 +102,5 @@ class AddBook extends React.Component {
     }
 }
 
-class RemoveBooks extends React.Component {
-    render(){
-        return <button>{this.props.orden}</button>
-    }
-}
 
-class ConsejeroApp extends React.Component {
-    render(){
-        return (
-            <div>
-                <Header tituloDeMiApp="Librero digital" />
-                <Description texto="Te asesoro sobre entidades alfanuméricas" />
-                <ChooseBook />
-                <RemoveBooks orden="Borrar libros" />
-                <Books />
-                <AddBook />
-            </div>
-        )
-    }
-}
-
-ReactDOM.render(<ConsejeroApp />, document.querySelector('#appRoot'))
+ReactDOM.render(<BooksApp />, document.querySelector('#appRoot'))

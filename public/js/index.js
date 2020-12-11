@@ -22,77 +22,179 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-var CounterApp = /*#__PURE__*/function (_React$Component) {
-  _inherits(CounterApp, _React$Component);
+var BooksApp = /*#__PURE__*/function (_React$Component) {
+  _inherits(BooksApp, _React$Component);
 
-  var _super = _createSuper(CounterApp);
+  var _super = _createSuper(BooksApp);
 
-  function CounterApp(props) {
+  function BooksApp(props) {
     var _this;
 
-    _classCallCheck(this, CounterApp);
+    _classCallCheck(this, BooksApp);
 
     _this = _super.call(this, props);
-    _this.incrementar = _this.incrementar.bind(_assertThisInitialized(_this));
-    _this.decrementar = _this.decrementar.bind(_assertThisInitialized(_this));
-    _this.resetear = _this.resetear.bind(_assertThisInitialized(_this));
     _this.state = {
-      contador: props.empezandoPor
+      books: [{
+        title: 'El principito',
+        author: 'Antoine de Saint-Exupéry'
+      }, {
+        title: 'El Quijote',
+        author: 'Miguel de Cervantes Saavedra'
+      }, {
+        title: 'Platero y yo',
+        author: 'Juan Ramón Jiménez'
+      }]
     };
     return _this;
   }
 
-  _createClass(CounterApp, [{
-    key: "incrementar",
-    value: function incrementar() {
-      console.log('incrementar');
-      this.setState(function (estadoPrevio) {
-        return {
-          contador: estadoPrevio.contador + 1
-        };
-      });
-    }
-  }, {
-    key: "decrementar",
-    value: function decrementar() {
-      console.log('decrementar');
-      this.setState(function (estadoPrevio) {
-        return {
-          contador: estadoPrevio.contador - 1
-        };
-      });
-    }
-  }, {
-    key: "resetear",
-    value: function resetear() {
-      console.log('resetear');
-      this.setState(function () {
-        return {
-          contador: 0
-        };
-      });
+  _createClass(BooksApp, [{
+    key: "escogerLibro",
+    value: function escogerLibro() {
+      var indice = Math.floor(Math.random() * this.state.books.length);
+      alert(this.state.books[indice].title + ' / ' + this.state.books[indice].author);
     }
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Contador"), /*#__PURE__*/React.createElement("p", null, this.state.contador), /*#__PURE__*/React.createElement("button", {
-        onClick: this.incrementar
-      }, "+1"), /*#__PURE__*/React.createElement("button", {
-        onClick: this.decrementar
-      }, "-1"), /*#__PURE__*/React.createElement("button", {
-        onClick: this.resetear
-      }, "reset"));
+      var subtitle = 'Te asesoro sobre entidades alfanuméricas';
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Header, {
+        subtitulo: subtitle
+      }), /*#__PURE__*/React.createElement(RecommendBook, null), /*#__PURE__*/React.createElement(Books, {
+        libros: this.state.books
+      }), /*#__PURE__*/React.createElement(AddBook, null));
     }
   }]);
 
-  return CounterApp;
+  return BooksApp;
 }(React.Component);
 
-CounterApp.defaultProps = {
-  empezandoPor: 0
+var Header = /*#__PURE__*/function (_React$Component2) {
+  _inherits(Header, _React$Component2);
+
+  var _super2 = _createSuper(Header);
+
+  function Header() {
+    _classCallCheck(this, Header);
+
+    return _super2.apply(this, arguments);
+  }
+
+  _createClass(Header, [{
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, this.props.titulo), /*#__PURE__*/React.createElement("h2", null, this.props.subtitulo));
+    }
+  }]);
+
+  return Header;
+}(React.Component);
+
+Header.defaultProps = {
+  titulo: 'Consejero literario digital'
 };
-ReactDOM.render( /*#__PURE__*/React.createElement(CounterApp, {
-  empezandoPor: 10
-}), document.querySelector('#appRoot'));
+
+var RecommendBook = /*#__PURE__*/function (_React$Component3) {
+  _inherits(RecommendBook, _React$Component3);
+
+  var _super3 = _createSuper(RecommendBook);
+
+  function RecommendBook() {
+    _classCallCheck(this, RecommendBook);
+
+    return _super3.apply(this, arguments);
+  }
+
+  _createClass(RecommendBook, [{
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", null, "Recomendar libro"));
+    }
+  }]);
+
+  return RecommendBook;
+}(React.Component);
+
+var Books = /*#__PURE__*/function (_React$Component4) {
+  _inherits(Books, _React$Component4);
+
+  var _super4 = _createSuper(Books);
+
+  function Books() {
+    _classCallCheck(this, Books);
+
+    return _super4.apply(this, arguments);
+  }
+
+  _createClass(Books, [{
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", null, this.props.libros.length ? "Hay ".concat(this.props.libros.length, " libros") : 'No hay libros disponibles en este momento'), /*#__PURE__*/React.createElement("p", null, "Aqu\xED van los libros"), /*#__PURE__*/React.createElement("ul", null, this.props.libros.map(function (libro) {
+        return /*#__PURE__*/React.createElement(Book, {
+          key: libro.title,
+          titulo: libro.title
+        });
+      })));
+    }
+  }]);
+
+  return Books;
+}(React.Component);
+
+var Book = /*#__PURE__*/function (_React$Component5) {
+  _inherits(Book, _React$Component5);
+
+  var _super5 = _createSuper(Book);
+
+  function Book() {
+    _classCallCheck(this, Book);
+
+    return _super5.apply(this, arguments);
+  }
+
+  _createClass(Book, [{
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement("li", null, this.props.titulo);
+    }
+  }]);
+
+  return Book;
+}(React.Component);
+
+var AddBook = /*#__PURE__*/function (_React$Component6) {
+  _inherits(AddBook, _React$Component6);
+
+  var _super6 = _createSuper(AddBook);
+
+  function AddBook() {
+    _classCallCheck(this, AddBook);
+
+    return _super6.apply(this, arguments);
+  }
+
+  _createClass(AddBook, [{
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement("form", null, /*#__PURE__*/React.createElement("label", {
+        htmlFor: "title"
+      }, "T\xEDtulo"), /*#__PURE__*/React.createElement("input", {
+        type: "text",
+        name: "title",
+        id: "title"
+      }), /*#__PURE__*/React.createElement("label", {
+        htmlFor: "author"
+      }, "Autor"), /*#__PURE__*/React.createElement("input", {
+        type: "text",
+        name: "author",
+        id: "author"
+      }), /*#__PURE__*/React.createElement("button", null, "A\xF1adir libro"));
+    }
+  }]);
+
+  return AddBook;
+}(React.Component);
+
+ReactDOM.render( /*#__PURE__*/React.createElement(BooksApp, null), document.querySelector('#appRoot'));
 
 //# sourceMappingURL=index.js.map
