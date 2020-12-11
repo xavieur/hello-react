@@ -6,14 +6,14 @@ class CounterApp extends React.Component {
         this.resetear = this.resetear.bind(this)
 
         this.state = {
-            count: 1
+            contador: props.empezandoPor
         }
     }
     incrementar() {
         console.log('incrementar');
         this.setState((estadoPrevio) => {
             return {
-                count: estadoPrevio.count + 1
+                contador: estadoPrevio.contador + 1
             }
         })
     }
@@ -21,7 +21,7 @@ class CounterApp extends React.Component {
         console.log('decrementar');
         this.setState((estadoPrevio) => {
             return {
-                count: estadoPrevio.count - 1
+                contador: estadoPrevio.contador - 1
             }
         })
     }
@@ -29,7 +29,7 @@ class CounterApp extends React.Component {
         console.log('resetear');
         this.setState(() => {
             return {
-                count: 0
+                contador: 0
             }
         })
     }
@@ -37,7 +37,7 @@ class CounterApp extends React.Component {
         return (
             <div>
                 <h1>Contador</h1>
-                <p>{this.state.count}</p>
+                <p>{this.state.contador}</p>
                 <button onClick={this.incrementar}>+1</button>
                 <button onClick={this.decrementar}>-1</button>
                 <button onClick={this.resetear}>reset</button>
@@ -46,4 +46,8 @@ class CounterApp extends React.Component {
     }
 }
 
-ReactDOM.render(<CounterApp />, document.querySelector('#appRoot'))
+CounterApp.defaultProps = {
+    empezandoPor: 0
+}
+
+ReactDOM.render(<CounterApp empezandoPor={10} />, document.querySelector('#appRoot'))

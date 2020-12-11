@@ -37,7 +37,7 @@ var CounterApp = /*#__PURE__*/function (_React$Component) {
     _this.decrementar = _this.decrementar.bind(_assertThisInitialized(_this));
     _this.resetear = _this.resetear.bind(_assertThisInitialized(_this));
     _this.state = {
-      count: 1
+      contador: props.empezandoPor
     };
     return _this;
   }
@@ -48,7 +48,7 @@ var CounterApp = /*#__PURE__*/function (_React$Component) {
       console.log('incrementar');
       this.setState(function (estadoPrevio) {
         return {
-          count: estadoPrevio.count + 1
+          contador: estadoPrevio.contador + 1
         };
       });
     }
@@ -58,7 +58,7 @@ var CounterApp = /*#__PURE__*/function (_React$Component) {
       console.log('decrementar');
       this.setState(function (estadoPrevio) {
         return {
-          count: estadoPrevio.count - 1
+          contador: estadoPrevio.contador - 1
         };
       });
     }
@@ -68,14 +68,14 @@ var CounterApp = /*#__PURE__*/function (_React$Component) {
       console.log('resetear');
       this.setState(function () {
         return {
-          count: 0
+          contador: 0
         };
       });
     }
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Contador"), /*#__PURE__*/React.createElement("p", null, this.state.count), /*#__PURE__*/React.createElement("button", {
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Contador"), /*#__PURE__*/React.createElement("p", null, this.state.contador), /*#__PURE__*/React.createElement("button", {
         onClick: this.incrementar
       }, "+1"), /*#__PURE__*/React.createElement("button", {
         onClick: this.decrementar
@@ -88,6 +88,11 @@ var CounterApp = /*#__PURE__*/function (_React$Component) {
   return CounterApp;
 }(React.Component);
 
-ReactDOM.render( /*#__PURE__*/React.createElement(CounterApp, null), document.querySelector('#appRoot'));
+CounterApp.defaultProps = {
+  empezandoPor: 0
+};
+ReactDOM.render( /*#__PURE__*/React.createElement(CounterApp, {
+  empezandoPor: 10
+}), document.querySelector('#appRoot'));
 
 //# sourceMappingURL=index.js.map
