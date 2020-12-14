@@ -35,6 +35,7 @@ var BooksApp = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.escogerLibro = _this.escogerLibro.bind(_assertThisInitialized(_this));
     _this.borrarLibros = _this.borrarLibros.bind(_assertThisInitialized(_this));
+    _this.introducirLibro = _this.introducirLibro.bind(_assertThisInitialized(_this));
     _this.state = {
       books: [{
         title: 'El principito',
@@ -70,8 +71,18 @@ var BooksApp = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "introducirLibro",
     value: function introducirLibro(nuevoLibro) {
+      if (!nuevoLibro) {
+        return 'Hay que introducir libro válido';
+      } else if (this.state.books.map(function (book) {
+        return book.title;
+      }).indexOf(nuevoLibro.title) > -1) {
+        return 'Libro repetido';
+      }
+
       this.setState(function (estadoPrevio) {
-        books: estadoPrevio.books.concat(nuevoLibro);
+        return {
+          books: estadoPrevio.books.concat(nuevoLibro)
+        };
       });
     }
   }, {
@@ -163,7 +174,8 @@ var Books = /*#__PURE__*/function (_React$Component4) {
       }, "Borrar libros")), /*#__PURE__*/React.createElement("ul", null, this.props.libros.map(function (libro) {
         return /*#__PURE__*/React.createElement(Book, {
           key: libro.title,
-          titulo: libro.title
+          titulo: libro.title,
+          autor: libro.author
         });
       })));
     }
@@ -186,7 +198,7 @@ var Book = /*#__PURE__*/function (_React$Component5) {
   _createClass(Book, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("li", null, this.props.titulo);
+      return /*#__PURE__*/React.createElement("li", null, this.props.titulo, " / ", this.props.autor);
     }
   }]);
 
@@ -204,8 +216,10 @@ var AddBook = /*#__PURE__*/function (_React$Component6) {
     _classCallCheck(this, AddBook);
 
     _this2 = _super6.call(this, props);
-    _this2.introducirLibro = _this2.introducirLibro(_assertThisInitialized(_this2));
-    _this2.state = {};
+    _this2.introducirLibro = _this2.introducirLibro.bind(_assertThisInitialized(_this2));
+    _this2.state = {
+      error: undefined
+    };
     return _this2;
   }
 
@@ -213,13 +227,24 @@ var AddBook = /*#__PURE__*/function (_React$Component6) {
     key: "introducirLibro",
     value: function introducirLibro(evento) {
       evento.preventDefault();
-      var title = evento.target.elements.title.trim();
-      var author = evento.target.elements.author.trim();
+      var title = evento.target.elements.title.value.trim();
+      var author = evento.target.elements.author.value.trim();
+      console.log('title', title, 'author', author);
+      var error = this.props.introducirLibro({
+        title: title,
+        author: author
+      });
+      console.log(error);
+      this.setState(function () {
+        return {
+          error: error
+        };
+      });
     }
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("form", {
+      return /*#__PURE__*/React.createElement("div", null, this.state.error && /*#__PURE__*/React.createElement("p", null, this.state.error), /*#__PURE__*/React.createElement("form", {
         onSubmit: this.introducirLibro
       }, /*#__PURE__*/React.createElement("label", {
         htmlFor: "title"
@@ -233,7 +258,7 @@ var AddBook = /*#__PURE__*/function (_React$Component6) {
         type: "text",
         name: "author",
         id: "author"
-      }), /*#__PURE__*/React.createElement("button", null, "A\xF1adir libro"));
+      }), /*#__PURE__*/React.createElement("button", null, "A\xF1adir libro")));
     }
   }]);
 
