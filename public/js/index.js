@@ -68,6 +68,13 @@ var BooksApp = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
+    key: "introducirLibro",
+    value: function introducirLibro(nuevoLibro) {
+      this.setState(function (estadoPrevio) {
+        books: estadoPrevio.books.concat(nuevoLibro);
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var subtitle = 'Te asesoro sobre entidades alfanuméricas';
@@ -79,7 +86,9 @@ var BooksApp = /*#__PURE__*/function (_React$Component) {
       }), /*#__PURE__*/React.createElement(Books, {
         libros: this.state.books,
         borrarLibros: this.borrarLibros
-      }), /*#__PURE__*/React.createElement(AddBook, null));
+      }), /*#__PURE__*/React.createElement(AddBook, {
+        introducirLibro: this.introducirLibro
+      }));
     }
   }]);
 
@@ -189,16 +198,30 @@ var AddBook = /*#__PURE__*/function (_React$Component6) {
 
   var _super6 = _createSuper(AddBook);
 
-  function AddBook() {
+  function AddBook(props) {
+    var _this2;
+
     _classCallCheck(this, AddBook);
 
-    return _super6.apply(this, arguments);
+    _this2 = _super6.call(this, props);
+    _this2.introducirLibro = _this2.introducirLibro(_assertThisInitialized(_this2));
+    _this2.state = {};
+    return _this2;
   }
 
   _createClass(AddBook, [{
+    key: "introducirLibro",
+    value: function introducirLibro(evento) {
+      evento.preventDefault();
+      var title = evento.target.elements.title.trim();
+      var author = evento.target.elements.author.trim();
+    }
+  }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("form", null, /*#__PURE__*/React.createElement("label", {
+      return /*#__PURE__*/React.createElement("form", {
+        onSubmit: this.introducirLibro
+      }, /*#__PURE__*/React.createElement("label", {
         htmlFor: "title"
       }, "T\xEDtulo"), /*#__PURE__*/React.createElement("input", {
         type: "text",

@@ -35,6 +35,11 @@ class BooksApp extends React.Component {
             }
         })
     }
+    introducirLibro(nuevoLibro){
+        this.setState((estadoPrevio) => {
+            books: estadoPrevio.books.concat(nuevoLibro)
+        })
+    }
     render() {
 
         const subtitle = 'Te asesoro sobre entidades alfanuméricas'
@@ -44,7 +49,7 @@ class BooksApp extends React.Component {
                 <Header subtitulo={subtitle} />
                 <RecommendBook escogerLibro={this.escogerLibro} hayLibros={this.state.books.length > 0} />
                 <Books libros={this.state.books} borrarLibros={this.borrarLibros} />
-                <AddBook />
+                <AddBook introducirLibro={this.introducirLibro} />
             </div>
         )
     }
@@ -103,12 +108,24 @@ class Book extends React.Component {
 }
 
 class AddBook extends React.Component {
-    introducirLibro(){
-        
+    constructor(props){
+        super(props)
+        this.introducirLibro = this.introducirLibro(this)
+        this.state = {
+            
+        }
+    }
+    introducirLibro(evento){
+        evento.preventDefault()
+
+        const title = evento.target.elements.title.trim()
+        const author = evento.target.elements.author.trim()
+
+
     }
     render() {
         return (
-            <form onSubmit={}>
+            <form onSubmit={this.introducirLibro}>
                 <label htmlFor="title">Título</label>
                 <input type="text" name="title" id="title" />
                 <label htmlFor="author">Autor</label>

@@ -29,6 +29,7 @@ class Amigo extends Person {
 
 const unAmigo = new Amigo('Perico', 34, 'Reus')
 console.log(unAmigo.saludar());
+console.log(unAmigo.getFullDescription());
 
 class Book {
     constructor(title, author){
