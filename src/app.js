@@ -103,9 +103,12 @@ class Book extends React.Component {
 }
 
 class AddBook extends React.Component {
+    introducirLibro(){
+        
+    }
     render() {
         return (
-            <form>
+            <form onSubmit={}>
                 <label htmlFor="title">Título</label>
                 <input type="text" name="title" id="title" />
                 <label htmlFor="author">Autor</label>

@@ -107,4 +107,12 @@ miGitHub.setAttribute('href', 'https://github.com/xavieur')
 miGitHub.classList.add('a')
 firstSection.appendChild(miGitHub)
 
+// escribir en consola los valores introducidos en un formulario
+const form = document.querySelector('#unFormulario')
+form.addEventListener('submit', (e) => {
+    console.log(e.target.elements.nombre); // ya que name="nombre"
+    console.log(e.target.elements.email); // ya que name="email"
+    console.log(e.target.elements.mensaje); // ya que name="mensaje"
+})
+
 
