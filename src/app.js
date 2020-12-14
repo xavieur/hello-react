@@ -29,7 +29,7 @@ class BooksApp extends React.Component {
     }
     introducirLibro(nuevoLibro) {
 
-        if (!nuevoLibro) {
+        if (!nuevoLibro.title) {
             return 'Hay que introducir libro válido'
         } else if (
             this.state.books.map((book) => {
@@ -128,7 +128,7 @@ class AddBook extends React.Component {
         const error = this.props.introducirLibro({ title, author })
         console.log(error);
         this.setState(() => {
-            return { error }
+            return { error: error }
         })
     }
     render() {

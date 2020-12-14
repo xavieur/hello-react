@@ -71,7 +71,7 @@ var BooksApp = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "introducirLibro",
     value: function introducirLibro(nuevoLibro) {
-      if (!nuevoLibro) {
+      if (!nuevoLibro.title) {
         return 'Hay que introducir libro válido';
       } else if (this.state.books.map(function (book) {
         return book.title;
