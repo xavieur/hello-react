@@ -36,6 +36,7 @@ var BooksApp = /*#__PURE__*/function (_React$Component) {
     _this.escogerLibro = _this.escogerLibro.bind(_assertThisInitialized(_this));
     _this.borrarLibros = _this.borrarLibros.bind(_assertThisInitialized(_this));
     _this.introducirLibro = _this.introducirLibro.bind(_assertThisInitialized(_this));
+    _this.borrarUnLibro = _this.borrarUnLibro.bind(_assertThisInitialized(_this));
     _this.state = {
       books: [{
         title: 'El principito',
@@ -69,6 +70,18 @@ var BooksApp = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
+    key: "borrarUnLibro",
+    value: function borrarUnLibro(tituloABorrar) {
+      console.log('tituloABorrar', tituloABorrar);
+      this.setState(function (estadoPrevio) {
+        return {
+          books: estadoPrevio.books.filter(function (book) {
+            return book.title !== tituloABorrar;
+          })
+        };
+      });
+    }
+  }, {
     key: "introducirLibro",
     value: function introducirLibro(nuevoLibro) {
       if (!nuevoLibro.title) {
@@ -88,15 +101,18 @@ var BooksApp = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var title = 'Consejero literario digital';
       var subtitle = 'Te asesoro sobre entidades alfanuméricas';
       return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Header, {
+        titulo: title,
         subtitulo: subtitle
       }), /*#__PURE__*/React.createElement(RecommendBook, {
         escogerLibro: this.escogerLibro,
         hayLibros: this.state.books.length > 0
       }), /*#__PURE__*/React.createElement(Books, {
         libros: this.state.books,
-        borrarLibros: this.borrarLibros
+        borrarLibros: this.borrarLibros,
+        borrarUnLibro: this.borrarUnLibro
       }), /*#__PURE__*/React.createElement(AddBook, {
         introducirLibro: this.introducirLibro
       }));
@@ -105,117 +121,101 @@ var BooksApp = /*#__PURE__*/function (_React$Component) {
 
   return BooksApp;
 }(React.Component);
-
-var Header = /*#__PURE__*/function (_React$Component2) {
-  _inherits(Header, _React$Component2);
-
-  var _super2 = _createSuper(Header);
-
-  function Header() {
-    _classCallCheck(this, Header);
-
-    return _super2.apply(this, arguments);
-  }
-
-  _createClass(Header, [{
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, this.props.titulo), /*#__PURE__*/React.createElement("h2", null, this.props.subtitulo));
+/* class Header extends React.Component {
+    render() {
+        return (
+            <div>
+                <h1>{this.props.titulo}</h1>
+                <h2>{this.props.subtitulo}</h2>
+            </div>
+        )
     }
-  }]);
+} */
 
-  return Header;
-}(React.Component);
+
+var Header = function Header(props) {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, props.titulo), /*#__PURE__*/React.createElement("h2", null, props.subtitulo));
+};
 
 Header.defaultProps = {
   titulo: 'Consejero literario digital'
 };
+/* class RecommendBook extends React.Component {
 
-var RecommendBook = /*#__PURE__*/function (_React$Component3) {
-  _inherits(RecommendBook, _React$Component3);
-
-  var _super3 = _createSuper(RecommendBook);
-
-  function RecommendBook() {
-    _classCallCheck(this, RecommendBook);
-
-    return _super3.apply(this, arguments);
-  }
-
-  _createClass(RecommendBook, [{
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
-        disabled: !this.props.hayLibros,
-        onClick: this.props.escogerLibro
-      }, "Recomendar libro"));
+    render() {
+        return (
+            <div>
+                <button disabled={!this.props.hayLibros} onClick={this.props.escogerLibro}>Recomendar libro</button>
+            </div>
+        )
     }
-  }]);
+} */
 
-  return RecommendBook;
-}(React.Component);
-
-var Books = /*#__PURE__*/function (_React$Component4) {
-  _inherits(Books, _React$Component4);
-
-  var _super4 = _createSuper(Books);
-
-  function Books() {
-    _classCallCheck(this, Books);
-
-    return _super4.apply(this, arguments);
-  }
-
-  _createClass(Books, [{
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", null, this.props.libros.length ? "Hay ".concat(this.props.libros.length, " libros") : 'No hay libros disponibles en este momento'), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("button", {
-        onClick: this.props.borrarLibros
-      }, "Borrar libros")), /*#__PURE__*/React.createElement("ul", null, this.props.libros.map(function (libro) {
-        return /*#__PURE__*/React.createElement(Book, {
-          key: libro.title,
-          titulo: libro.title,
-          autor: libro.author
-        });
-      })));
+var RecommendBook = function RecommendBook(props) {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
+    disabled: !props.hayLibros,
+    onClick: props.escogerLibro
+  }, "Recomendar libro"));
+};
+/* class Books extends React.Component {
+    render() {
+        return (
+            <div>
+                <p>{this.props.libros.length ? `Hay ${this.props.libros.length} libros` : 'No hay libros disponibles en este momento'}</p>
+                <p><button onClick={this.props.borrarLibros} >Borrar libros</button></p>
+                <ul>
+                    {this.props.libros.map((libro) => {
+                        return <Book key={libro.title} titulo={libro.title} autor={libro.author} />
+                    })}
+                </ul>
+            </div>
+        )
     }
-  }]);
+} */
 
-  return Books;
-}(React.Component);
 
-var Book = /*#__PURE__*/function (_React$Component5) {
-  _inherits(Book, _React$Component5);
-
-  var _super5 = _createSuper(Book);
-
-  function Book() {
-    _classCallCheck(this, Book);
-
-    return _super5.apply(this, arguments);
-  }
-
-  _createClass(Book, [{
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React.createElement("li", null, this.props.titulo, " / ", this.props.autor);
+var Books = function Books(props) {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", null, props.libros.length ? "Hay ".concat(props.libros.length, " libros") : 'No hay libros disponibles en este momento'), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("button", {
+    onClick: props.borrarLibros
+  }, "Borrar libros")), /*#__PURE__*/React.createElement("ul", null, props.libros.map(function (libro) {
+    return /*#__PURE__*/React.createElement(Book, {
+      key: libro.title,
+      titulo: libro.title,
+      autor: libro.author,
+      borrarUnLibro: props.borrarUnLibro
+    });
+  })));
+};
+/* class Book extends React.Component {
+    render() {
+        return (
+            <li>
+                {this.props.titulo} / {this.props.autor} <button>x</button>
+            </li>
+        )
     }
-  }]);
+} */
 
-  return Book;
-}(React.Component);
 
-var AddBook = /*#__PURE__*/function (_React$Component6) {
-  _inherits(AddBook, _React$Component6);
+var Book = function Book(props) {
+  return /*#__PURE__*/React.createElement("li", null, props.titulo, " / ", props.autor, " ", /*#__PURE__*/React.createElement("button", {
+    onClick: function onClick(e) {
+      props.borrarUnLibro(props.titulo);
+    }
+  }, "x"));
+};
 
-  var _super6 = _createSuper(AddBook);
+var AddBook = /*#__PURE__*/function (_React$Component2) {
+  _inherits(AddBook, _React$Component2);
+
+  var _super2 = _createSuper(AddBook);
 
   function AddBook(props) {
     var _this2;
 
     _classCallCheck(this, AddBook);
 
-    _this2 = _super6.call(this, props);
+    _this2 = _super2.call(this, props);
     _this2.introducirLibro = _this2.introducirLibro.bind(_assertThisInitialized(_this2));
     _this2.state = {
       error: undefined
@@ -229,12 +229,10 @@ var AddBook = /*#__PURE__*/function (_React$Component6) {
       evento.preventDefault();
       var title = evento.target.elements.title.value.trim();
       var author = evento.target.elements.author.value.trim();
-      console.log('title', title, 'author', author);
       var error = this.props.introducirLibro({
         title: title,
         author: author
       });
-      console.log(error);
       this.setState(function () {
         return {
           error: error

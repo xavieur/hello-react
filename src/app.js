@@ -5,6 +5,7 @@ class BooksApp extends React.Component {
         this.escogerLibro = this.escogerLibro.bind(this)
         this.borrarLibros = this.borrarLibros.bind(this)
         this.introducirLibro = this.introducirLibro.bind(this)
+        this.borrarUnLibro = this.borrarUnLibro.bind(this)
 
         this.state = {
             books: [
@@ -27,8 +28,17 @@ class BooksApp extends React.Component {
             }
         })
     }
+    borrarUnLibro(tituloABorrar) {
+        console.log('tituloABorrar', tituloABorrar);
+        this.setState((estadoPrevio) => {
+            return {
+                books: estadoPrevio.books.filter((book) => {
+                    return book.title !== tituloABorrar
+                })
+            }
+        })
+    }
     introducirLibro(nuevoLibro) {
-
         if (!nuevoLibro.title) {
             return 'Hay que introducir libro válido'
         } else if (
@@ -46,21 +56,21 @@ class BooksApp extends React.Component {
         })
     }
     render() {
-
+        const title = 'Consejero literario digital'
         const subtitle = 'Te asesoro sobre entidades alfanuméricas'
 
         return (
             <div>
-                <Header subtitulo={subtitle} />
+                <Header titulo={title} subtitulo={subtitle} />
                 <RecommendBook escogerLibro={this.escogerLibro} hayLibros={this.state.books.length > 0} />
-                <Books libros={this.state.books} borrarLibros={this.borrarLibros} />
+                <Books libros={this.state.books} borrarLibros={this.borrarLibros} borrarUnLibro={this.borrarUnLibro} />
                 <AddBook introducirLibro={this.introducirLibro} />
             </div>
         )
     }
 }
 
-class Header extends React.Component {
+/* class Header extends React.Component {
     render() {
         return (
             <div>
@@ -69,13 +79,22 @@ class Header extends React.Component {
             </div>
         )
     }
+} */
+
+const Header = (props) => {
+    return (
+        <div>
+            <h1>{props.titulo}</h1>
+            <h2>{props.subtitulo}</h2>
+        </div>
+    )
 }
 
 Header.defaultProps = {
     titulo: 'Consejero literario digital'
 }
 
-class RecommendBook extends React.Component {
+/* class RecommendBook extends React.Component {
 
     render() {
         return (
@@ -84,9 +103,17 @@ class RecommendBook extends React.Component {
             </div>
         )
     }
+} */
+
+const RecommendBook = (props) => {
+    return (
+        <div>
+            <button disabled={!props.hayLibros} onClick={props.escogerLibro}>Recomendar libro</button>
+        </div>
+    )
 }
 
-class Books extends React.Component {
+/* class Books extends React.Component {
     render() {
         return (
             <div>
@@ -100,16 +127,40 @@ class Books extends React.Component {
             </div>
         )
     }
+} */
+
+const Books = (props) => {
+    return (
+        <div>
+            <p>{props.libros.length ? `Hay ${props.libros.length} libros` : 'No hay libros disponibles en este momento'}</p>
+            <p><button onClick={props.borrarLibros} >Borrar libros</button></p>
+            <ul>
+                {props.libros.map((libro) => {
+                    return <Book key={libro.title} titulo={libro.title} autor={libro.author} borrarUnLibro={props.borrarUnLibro} />
+                })}
+            </ul>
+        </div>
+    )
 }
 
-class Book extends React.Component {
+/* class Book extends React.Component {
     render() {
         return (
             <li>
-                {this.props.titulo} / {this.props.autor}
+                {this.props.titulo} / {this.props.autor} <button>x</button>
             </li>
         )
     }
+} */
+
+const Book = (props) => {
+    return (
+        <li>
+            {props.titulo} / {props.autor} <button onClick={(e) => {
+                props.borrarUnLibro(props.titulo)
+            }} >x</button>
+        </li>
+    )
 }
 
 class AddBook extends React.Component {
@@ -124,9 +175,7 @@ class AddBook extends React.Component {
         evento.preventDefault()
         const title = evento.target.elements.title.value.trim()
         const author = evento.target.elements.author.value.trim()
-        console.log('title', title, 'author', author);
         const error = this.props.introducirLibro({ title, author })
-        console.log(error);
         this.setState(() => {
             return { error: error }
         })
@@ -146,6 +195,5 @@ class AddBook extends React.Component {
         )
     }
 }
-
 
 ReactDOM.render(<BooksApp />, document.querySelector('#appRoot'))
